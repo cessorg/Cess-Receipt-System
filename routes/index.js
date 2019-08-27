@@ -88,7 +88,7 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
     db.Reciept.create(newReciept)
     .then(createdReciept=>{
         console.log(createdReciept);
-        QRCode.toDataURL('I am a pony!', function (err, url) {
+        QRCode.toDataURL(createdReciept._id, function (err, url) {
           const mailOptions = {
               from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
               to: createdReciept.teamLeaderEmail, // list of receivers (who receives)
