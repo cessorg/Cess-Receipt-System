@@ -21,7 +21,7 @@ router.post('/scanqr',middleware.isLogin,(req,res)=>{
 });
 
 router.get('/team-details/:id',middleware.isLogin,(req,res)=>{
-  db.Reciept.findById(req.body.id)
+  db.Reciept.findById(req.params.id)
     .then(data=>{
       if(!data.expire){
         data.isValid = true;
@@ -88,12 +88,20 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
     db.Reciept.create(newReciept)
     .then(createdReciept=>{
         console.log(createdReciept);
-        QRCode.toDataURL(createdReciept._id, function (err, url) {
+       
+        QRCode.toDataURL(createdReciept._id.toString(), function (err, url) {
+            
+            console.log(url);
+            
           const mailOptions = {
               from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
               to: createdReciept.teamLeaderEmail, // list of receivers (who receives)
               subject: `You registered Successfully `, // Subject line
-              html: `<h3>Thank You for participating in This event. We Believe You will put your best to win it.<h3><br><br><p>Your Qr Code is shown below. Please don't share it with anyone and star the mail to find it easily during the event time</p><br><br><br><br><img src="${url}" height="30px" width="30px"/><br><br><br><br>`
+              html: `<h3>Thank You for participating in This event. We Believe You will put your best to win it.<h3><br><br><p>Your Qr Code is shown below. Please don't share it with anyone and star the mail to find it easily during the event time</p><br><br><br><br><br><br><br><br>`,
+              attachments:[{
+                  filename:"QRcode.jpg",
+                  content: new Buffer(url.split("base64,")[1],"base64")
+              }]  
             };
             mailFunction(mailOptions);
           res.redirect("/reciept");
