@@ -1,0 +1,42 @@
+<% include ./partials/header %>
+<div class="row p-5 jumbotron">
+    <div class="col-lg-6 pt-5 ">
+        <h1 class="cust-display ">Tranforming  Cess Reciepts from offline to <span class="text-primary">Online</span> </h1>
+    </div>
+    <div class="col-lg-6 pt-4">
+        <img src="https://flock.com/img/customer-support/cs-banner-800f92cc.png" style="width:100%;">
+    </div>
+
+</div>
+<div class="container">
+    <div class="row mt-5" id="login">
+        <div class="col-sm-2 col-md-3"></div>
+        <div class="col-sm-8 col-md-6 mb-5 ">
+             <div class="card p-4 shadow-drk" style="background-color:#f1f1f1;border:none" >
+                <h2>Sign In</h2>
+                <div class="card-body">
+                    <form action="/login" method="POST">
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend bg-success text-white pl-3 pr-3 pt-2" style="font-size:20px"><i class="fa fa-envelope" ></i></div>
+                            <input type="email" name="username" placeholder="Enter Email" class="form-control" />
+                        </div>
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend bg-success text-white pl-3 pr-3 pt-2" style="font-size:20px"><i class="fa fa-key" ></i></div>
+                            <input type="password" name="password" placeholder="Enter password" class="form-control" />
+                        </div>
+                        <button class="btn btn-outline-success"> Login </button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-2 col-md-3"></div>
+       
+
+       
+        
+    </div>
+    </div>
+    
+</body>
+</html>
