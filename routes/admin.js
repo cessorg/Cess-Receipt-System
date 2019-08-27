@@ -17,12 +17,12 @@ router.post("/register",middleware.isAdmin,(req,res)=>{
     db.User.register( new db.User(newUser),req.body.password,(err,user)=>{
         if(err){
             console.log(err);
-            
-    
+
+
         }
         else{
             console.log(user);
-            
+
         }
         res.redirect("/admin");
     });
@@ -49,8 +49,8 @@ router.post("/event",middleware.isAdmin,(req,res)=>{
         console.log(err);
         res.send(err);
     });
-          
-    
+
+
 });
 
 module.exports=router;

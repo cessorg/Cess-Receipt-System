@@ -19,9 +19,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/css/bootstrap-select.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.10/js/bootstrap-select.min.js"> </script>
-    
+
     <title>Cess Reciept App</title>
-   
+
 </head>
 <body>
     <nav class="navbar  navbar-expand-lg  navbar-dark bg-dark shadow-drk">
@@ -35,33 +35,36 @@
         <li class="nav-item ">
             <a class="p-2 nav-link "  href="/">Home <span class="sr-only">(current)</span></a>
         </li>
-        
+
 
         <!--Logic to add login and logout links  -->
         <% if(curUser){ %>
-            
+
             <!--Logic for admin links....-->
             <% if(curUserRole==="Admin"){%>
-                
+
                 <li class="nav-item">
-                    <a class="nav-link p-2 <% if(locals.isADashboard){ %>active<%}%>" href="/admin">Dashboard</a>    
+                    <a class="nav-link p-2 <% if(locals.isADashboard){ %>active<%}%>" href="/admin">Dashboard</a>
                 </li>
-                
-           
+
+
             <% }else{ %>
                 <li class="nav-item">
-                    <a class="nav-link p-2 <% if(locals.isCDashboard){ %>active<%}%>" href="/callcenter">Dashboard</a>    
+                    <a class="nav-link p-2 <% if(locals.isCDashboard){ %>active<%}%>" href="/reciept">Dashboard</a>
                 </li>
-                
+
             <% } %>
             <li class="nav-item">
-                <a class="nav-link" href="/logout">Logout</a>    
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link p-2" href="/scanqr">Scan Code</a>
             </li>
         <% }else{ %>
             <li class="nav-item">
                 <a class="nav-link p-2  <% if(locals.isLogin){ %>active<%}%>" href="/#login" >Login</a>
             </li>
-        <% } %>        
+        <% } %>
         </ul>
         </div>
     </nav>
