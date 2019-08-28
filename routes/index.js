@@ -38,7 +38,7 @@ router.get('/team-details/:id',middleware.isLogin,(req,res)=>{
 })
 
 router.get('/lock-user/:id',middleware.isLogin,(req,res)=>{
-  db.findById(req.params.id)
+  db.Reciept.findById(req.params.id)
     .then(reciept=>{
       reciept.expire = true;
       reciept.save();
@@ -88,11 +88,11 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
     db.Reciept.create(newReciept)
     .then(createdReciept=>{
         console.log(createdReciept);
-       
+
         QRCode.toDataURL(createdReciept._id.toString(), function (err, url) {
-            
+
             console.log(url);
-            
+
           const mailOptions = {
               from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
               to: createdReciept.teamLeaderEmail, // list of receivers (who receives)
@@ -101,7 +101,7 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
               attachments:[{
                   filename:"QRcode.jpg",
                   content: new Buffer(url.split("base64,")[1],"base64")
-              }]  
+              }]
             };
             mailFunction(mailOptions);
           res.redirect("/reciept");
