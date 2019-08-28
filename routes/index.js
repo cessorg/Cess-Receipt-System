@@ -59,7 +59,16 @@ router.post("/login",passport.authenticate("local",{
 
 });
 router.get("/cashier",middleware.isLogin,(req,res)=>{
-    res.render("cashier");
+  db.Reciept.find({generatedBy:req.user._id})
+  .populate("event")
+  .then(foundReciepts=>{
+    res.render("cashier",{reciepts:foundReciepts});
+  })
+  .catch(err=>{
+    console.log(err);
+    res.redirect("/");
+  });
+
 });
 
 router.get("/reciept",middleware.isLogin,(req,res)=>{
