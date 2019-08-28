@@ -1,0 +1,14 @@
+<% include ../partials/header %>
+  <%
+    var totalAmount=0,eventAmount={};
+    reciepts.forEach(reciept=>{
+      totalAmount=totalAmount+ reciept.eventFee;
+      eventAmount[reciept.event.eName]=((eventAmount[reciept.event.eName])?eventAmount[reciept.event.eName]:0)+reciept.eventFee;
+    });
+  %>
+
+  <% Object.keys(eventAmount).forEach(function(key) {%>
+    <p><span class="text-primary"><%=key%> </span><%=eventAmount[key]%></p>
+<%})%>
+</body>
+</html>

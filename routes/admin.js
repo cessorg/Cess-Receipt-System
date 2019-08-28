@@ -6,7 +6,14 @@ const userRole=require("../models/userRoles");
 const middleware=require('../middleware/middleware');
 
 router.get("/",middleware.isAdmin,(req,res)=>{
-    res.render("admin/home");
+    db.User.find({userRole:userRole.Cashier})
+    .then(cashiers=>{
+      res.render("admin/home",{cashiers:cashiers});
+    })
+    .catch(err=>{
+      console.log(err.message);
+      res.redirect('/');
+    })
 });
 
 router.post("/register",middleware.isAdmin,(req,res)=>{
@@ -28,6 +35,19 @@ router.post("/register",middleware.isAdmin,(req,res)=>{
     });
 
 });
+
+router.post("/cashierData",middleware.isAdmin,(req,res)=>{
+  res.redirect('/admin/cashierDetails/'+req.body.cashier);
+});
+
+router.get('/cashierDetails/:id',middleware.isAdmin,(req,res)=>{
+  db.Reciept.find({generatedBy:req.params.id})
+    .populate("event")
+    .then(reciepts=>{
+      res.render('admin/cashierDetails',{reciepts});
+    })
+})
+
 router.get("/events",middleware.isAdmin,(req,res)=>{
     db.Event.find()
     .then(eve=>{
