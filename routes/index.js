@@ -92,7 +92,7 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
         teamMembers:[]
     }
     for(var i=1;i<req.body.memberCount;i++){
-        newReciept.teamMembers.push(req.body["member"+i+1]);
+        newReciept.teamMembers.push(req.body["member"+(i+1)]);
     }
     db.Reciept.create(newReciept)
     .then(createdReciept=>{

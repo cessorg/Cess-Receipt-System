@@ -10,7 +10,6 @@ var transporter = nodemailer.createTransport({
         clientSecret: "gRedgJh5F_nZjI0i_j6BgR84",
         refreshToken: "1/ajJoXfqaj-3xkDxJzJDS2mdzDoO5vx4x4ax_OywuYY9TPqSPPBYcA1LaaVQ5P-ch",
         accessToken: "ya29.GlvNBvjBJsFkOlstDauW45RYYEPEw270ZpwLhyWFlDEFEqwFNgPx9GPoWjmPuEOsrOCbXuXwon6y-rDD2cjIK7uWw9LhHaaOpTYrxJ4w11ATrSeEj-R4JK0LJRkh",
-
         expires: 1484314697598
     }
 });

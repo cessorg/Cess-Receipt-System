@@ -6,21 +6,21 @@ module.exports={
                 return next();
             }
             else{
-                return res.send("You are not allowed to access this page..");
+                return res.redirect('/');
             }
         }
         else{
-            return res.send("You are not LOgged in.")
+            return res.redirect('/');
         }
     },
     isLogin:(req,res,next)=>{
         if(req.isAuthenticated()){
-            
+
                 return next();
-            
+
         }
         else{
-            return res.send("You are not LOgged in.")
+            return res.redirect('/');
         }
     }
 }
