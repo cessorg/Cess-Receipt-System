@@ -9,12 +9,12 @@
     <div class="container py-5">
     <div class="row">
         <div class="col-lg-12 mx-auto mb-5  text-center">
-            <h1 class="display-4">Cashier's Home</h1>
+            <h1 class="display-4">Cashier's Dashboard</h1>
 
         </div>
        <div class="col-lg-4 col-sm-6 p-3">
            <a href="/reciept">
-            <div class="bg-dark rounded-lg p-2 shadow" style="height:100%">
+            <div class="bg-dark rounded-lg p-2 shadow-lg" style="height:100%">
                 <h2 class="h4 font-weight-bold mt-2 text-center mb-4">Generate Reciept</h2>
                 <br>
                 <div class=" mx-auto text-center" style="width:150px;height:150px">
@@ -27,7 +27,7 @@
        </div>
        <div class="col-lg-4 col-sm-6 p-3">
 
-            <div class="bg-dark rounded-lg p-2 shadow" style="height:100%">
+            <div class="bg-dark rounded-lg p-2 shadow-lg" style="height:100%">
                 <h2 class="h4 font-weight-bold mt-2 text-center text-primary mb-4">Total Reciepts generated </h2>
                 <br>
                 <div class=" mx-auto text-center" style="width:150px;height:150px">
@@ -40,8 +40,8 @@
 
        </div>
        <div class="col-lg-4 col-sm-6 p-3">
-
-            <div class="bg-dark rounded-lg p-2 shadow" style="height:100%">
+            <a href="#" data-toggle="modal" data-target="#detailList">
+            <div class="bg-dark rounded-lg p-2 shadow-lg" style="height:100%">
                 <h2 class="h4 font-weight-bold mt-2 text-center text-primary mb-4">Total Money Collected:- </h2>
                 <br>
                 <div class=" mx-auto text-center" style="width:150px;height:150px">
@@ -51,8 +51,42 @@
 
 
             </div>
+        </a>
 
        </div>
     </div>
 
     </div>
+    <div class="modal fade center"  id="detailList" tabindex="-1" role="dialog" aria-labelledby="srchListLabel"
+    aria-hidden="true">
+        <div class="modal-dialog" style="min-width:80%;" role="document">
+            <div class="modal-content">
+                <div class="modal-header mb-4">
+                    <h5 class="modal-title" id="srchCustomerLabel">Event Wise Collection</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body container">                 
+                    <div class="row">
+                        <div class="col-lg-2"></div>
+                        <div class="col-6 col-lg-4 bg-dark text-white " style="border-right:1px solid #a1a1a1; "><b>Event Name</b></div>
+                        <div class="col-6 col-lg-4 bg-dark text-white " style="border-left:1px solid #a1a1a1; "><b>Amount collected</b></div>
+                        <div class="col-lg-2"></div>
+                        <% Object.keys(eventAmount).forEach(eventKey=>{ %>
+                            <div class="col-lg-2"></div>
+                            <div class="col-6 col-lg-4 border border-secondary border-top-0"><b><%=eventKey%></b></div>
+                            <div class="col-6 col-lg-4 border border-secondary border-top-0" style="background-color:#d1d1d1;" ><b><%=eventAmount[eventKey]%></b></div>
+                            <div class="col-lg-2"></div>
+                        <% })%>
+                    </div>
+                  
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" 
+                        data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+        </div>
+        </div>

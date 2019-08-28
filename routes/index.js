@@ -6,11 +6,15 @@ const userRole=require("../models/userRoles");
 const middleware=require('../middleware/middleware');
 const mailFunction=require("../mail");
 const QRCode = require('qrcode');
+const ejs=require("ejs");
 
 router.get("/",(req,res)=>{
     res.render("index");
 });
 
+router.get("/mailhtml",(req,res)=>{
+  res.render("mail");
+})
 router.get('/scanqr',middleware.isLogin,(req,res)=>{
   res.render("checkRegistration.ejs");
 });
@@ -97,22 +101,43 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
     db.Reciept.create(newReciept)
     .then(createdReciept=>{
         console.log(createdReciept);
+        db.Event.findById(createdReciept.event)
+        .then(event=>{
+          
+          QRCode.toDataURL(createdReciept._id.toString(), function (err, url) {
+              var htmlString="";
+              ejs.renderFile(__dirname+"/../views/mail.ejs",{
+                reciept:{
+                  leaderName:createdReciept.teamLeaderName,
+                  eventFee:createdReciept.eventFee
+                },
+                eName:event.eName
+              },(err,data)=>{
+                if(err){
 
-        QRCode.toDataURL(createdReciept._id.toString(), function (err, url) {
+                  console.log(err);
+                }else{
 
-            console.log(url);
-
-          const mailOptions = {
-              from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
-              to: createdReciept.teamLeaderEmail, // list of receivers (who receives)
-              subject: `You registered Successfully `, // Subject line
-              html: `<h3>Thank You for participating in This event. We Believe You will put your best to win it.<h3><br><br><p>Your Qr Code is shown below. Please don't share it with anyone and star the mail to find it easily during the event time</p><br><br><br><br><br><br><br><br>`,
-              attachments:[{
-                  filename:"QRcode.jpg",
-                  content: new Buffer(url.split("base64,")[1],"base64")
-              }]
-            };
-            mailFunction(mailOptions);
+                  htmlString=data;
+                }
+              });
+  
+            const mailOptions = {
+                from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
+                to: createdReciept.teamLeaderEmail, // list of receivers (who receives)
+                subject: `You registered Successfully `, // Subject line
+                html: htmlString,
+                attachments:[{
+                    filename:"QRcode.jpg",
+                    content: new Buffer(url.split("base64,")[1],"base64")
+                }]
+              };
+              mailFunction(mailOptions);
+            res.redirect("/reciept");
+          });
+        })
+        .catch(err=>{
+          console.log(err);
           res.redirect("/reciept");
         });
     })

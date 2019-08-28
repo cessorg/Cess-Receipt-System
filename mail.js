@@ -5,12 +5,12 @@ var transporter = nodemailer.createTransport({
     secure: true,
     auth: {
         type: 'OAuth2',
-        user: "email",
-        clientId: "id",
-        clientSecret: "secret key",
-        refreshToken: "token",
-        accessToken: "token",
-        expires: 1234
+        user: process.env.mail_user,
+        clientId: process.env.mail_client_id,
+        clientSecret: process.env.mail_client_secret,
+        refreshToken: process.env.mail_refresh_token,
+        accessToken: process.env.mail_access_token,
+        expires: Number(process.env.expires)
     }
 });
 

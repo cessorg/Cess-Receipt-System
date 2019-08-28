@@ -6,16 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
     <style>
-        *{
-            padding:0;
-
+        *,
+        body {
+            padding: 0;
+            margin: 0;
         }
+
+        .body {
+            background-color: #E24747;
+            width:100%;
+        }
+
         #mailheader {
 
             height: 50%;
             width: 100%;
-            background-color: gainsboro;
+            padding: 10px 5px 5px 15px;
+            background-color: white;
             box-sizing: border-box;
 
 
@@ -23,12 +32,12 @@
 
         #image {
             display: inline-block;
-            width:50px;
+            width: 50px;
         }
 
         #para {
             display: inline-block;
-            width:70%;
+            width: 70%;
         }
 
         #headertext {
@@ -44,23 +53,96 @@
 
         }
 
+        .main {
+            margin: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            
+        }
+
         #thanks {
-            color: chocolate;
+            color: rgb(0, 0, 0);
+            margin-bottom: 5px;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         }
 
         #logocess {
-            width:50px;
+            width: 50px;
         }
 
         #message {
             font-size: 20px;
-            color: darkslateblue;
+            color: rgb(0, 0, 0);
         }
 
         #event {
             font-style: bold;
-            color: darkslateblue;
+            color: rgb(0, 0, 0);
         }
+
+        @media (max-width:500px) {
+            #headertext {
+                font-size: 20px;
+            }
+        }
+
+        table {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            padding: 15px;
+            text-align: left;
+        }
+        td{
+            background-color: white;
+        }
+        th{
+            background-color: #d1d1d1;
+            
+        }
+        .fa {
+            padding: 20px;
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 50%;
+            }
+
+            /* Add a hover effect if you want */
+            .fa:hover {
+            opacity: 0.7;
+            }
+
+            /* Set a specific color for each brand */
+
+            /* Facebook */
+            .fa-facebook {
+            background: #3B5998;
+            color: white;
+            }
+
+            /* Twitter */
+            .fa-instagram {
+            background-color: #E24747;
+            color: white;
+            }
+            .fa-globe{
+                background-color: rgb(7, 20, 53);
+                color:white;
+            }
     </style>
 </head>
 
@@ -76,12 +158,45 @@
             <p id="headertext">Computer Engineering student society</p>
         </div>
     </div>
-    <h1 id="thanks">Thankyou for participating <span id="thanks">Bharat Nischal!</span></h1>
+    
 
-    <p id="message">You are successfully registered in <strong><em><span id="event">Scavanger Hunt</span></em></strong>
-        Event!</p>
-        <h3 style="color: forestgreen ">Event Fee: <span style="color: dimgray">Rs 100/-</span></h3>
-      <em> <strong> <p style="color: #E24747">Hope you will put full efforts to win this Event!</p></strong></em>
+        <main class="main">
+            <h1 id="thanks">Thankyou for participating <span style="color:rgb(248, 3, 3)"><%=reciept.leaderName %>!</span></h1>
+            <hr />
+            <h2 style="margin:10px 0 10px 0px;">Reciept Details:</h2>
+            
+            <table >
+                <tr>
+                    <th>Event Name</th>
+                    <td><strong><%=eName%></strong></th>
+                </tr>
+                <tr>
+                    <th>Leader Name </th>
+                    <td><strong><%= reciept.leaderName %></strong></th>
+                </tr>
+                <tr>
+                    <th>Event Fee </th>
+                    <td><strong><%= reciept.eventFee %></strong></td>
+                </tr>
+    
+            </table>
+            <p><strong>Your Qr Code is shown below. Please don't share it with anyone and star the mail to find it easily during the event time</strong></p>
+            <em> <strong>
+                    <p style="color: #E24747; margin-bottom:50px;"><span style="font-size:32px; color:rgb(248, 3, 3)">"</span>Hope you will put
+                        full efforts to win this Event!<span style="font-size:32px;color:rgb(248, 3, 3)">"</span></p>
+                </strong></em>
+
+    
+            <div class="footer" style="width:100%;">
+                    <div class="social" style="margin-left:30%;">
+                        <a href="https://www.facebook.com/gnducess/" class="fa "><img src="https://upload.wikimedia.org/wikipedia/commons/0/05/Facebook_Logo_%282019%29.png" style="width:40px;" /></a>
+                        <a href="https://www.instagram.com/cess.gndu/" class="fa "><img src="http://pluspng.com/img-png/instagram-png-instagram-png-logo-1455.png" style="width:40px;" /></a>
+                        <a href="https://cessgndu.com" class="fa "><img src="https://www.konfest.com/wp-content/uploads/2019/05/Konfest-PNG-JPG-Image-Pic-Photo-Free-Download-Royalty-Unlimited-clip-art-sticker-world-wide-web-icons-website-earth-grid-globe-75.png" style="width:40px;" /></a>
+                        
+            </div>
+            </div>    
+        </main>
+    
 
 </body>
 
