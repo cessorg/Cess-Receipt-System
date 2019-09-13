@@ -8,7 +8,13 @@ const middleware=require('../middleware/middleware');
 router.get("/",middleware.isAdmin,(req,res)=>{
     db.User.find({userRole:userRole.Cashier})
     .then(cashiers=>{
-      res.render("admin/home",{cashiers:cashiers});
+      db.Event.find({})
+      .then(events=>{
+        res.render("admin/home",{cashiers:cashiers,events:events});
+      })
+      .catch(err=>{
+        console.log(err.message);
+      });
     })
     .catch(err=>{
       console.log(err.message);
@@ -40,11 +46,23 @@ router.post("/cashierData",middleware.isAdmin,(req,res)=>{
   res.redirect('/admin/cashierDetails/'+req.body.cashier);
 });
 
+router.post("/eventData",middleware.isAdmin,(req,res)=>{
+  res.redirect('/admin/eventDetails/'+req.body.event);
+});
+
 router.get('/cashierDetails/:id',middleware.isAdmin,(req,res)=>{
   db.Reciept.find({generatedBy:req.params.id})
     .populate("event")
     .then(reciepts=>{
       res.render('admin/cashierDetails',{reciepts});
+    })
+});
+
+router.get('/eventDetails/:id',middleware.isAdmin,(req,res)=>{
+  db.Reciept.find({event:req.params.id})
+    .populate("generatedBy")
+    .then(reciepts=>{
+      res.render('admin/eventDetails',{reciepts});
     })
 })
 

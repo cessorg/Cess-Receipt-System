@@ -1,0 +1,23 @@
+<% include ../partials/header %>
+  <%
+    var totalAmount=0,cashierAmount={};
+    reciepts.forEach(reciept=>{
+      totalAmount=totalAmount+ reciept.eventFee;
+      cashierAmount[reciept.generatedBy.username]=((cashierAmount[reciept.generatedBy.username])?cashierAmount[reciept.generatedBy.username]:0)+reciept.eventFee;
+    });
+  %>
+  <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Event Name</th>
+      <th scope="col">Money</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% Object.keys(cashierAmount).forEach(function(key) {%>
+    <tr><td><%=key%></td> <td><%=cashierAmount[key]%></td></tr>
+<%})%>
+</tbody>
+</table>
+</body>
+</html>

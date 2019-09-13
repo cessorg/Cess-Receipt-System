@@ -24,7 +24,23 @@ router.post('/scanqr',middleware.isLogin,(req,res)=>{
     res.redirect('/team-details/'+req.body.id);
 });
 
+router.post('/leaderEmail',middleware.isLogin,(req,res)=>{
+    db.Reciept.findOne({teamLeaderEmail:req.body.email,expire:false})
+    .then(data=>{
+      if(!data)
+        res.redirect('/team-details/noRecord');
+      else
+        res.redirect('/team-details/'+data._id);
+    });
+});
+
 router.get('/team-details/:id',middleware.isLogin,(req,res)=>{
+  if(req.params.id == "noRecord")
+  {
+    let data ={};
+    data.isValid = false;
+    res.render("userDetails",{data:data});
+  }
   db.Reciept.findById(req.params.id)
     .then(data=>{
       if(!data.expire){
@@ -103,7 +119,7 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
         console.log(createdReciept);
         db.Event.findById(createdReciept.event)
         .then(event=>{
-          
+
           QRCode.toDataURL(createdReciept._id.toString(), function (err, url) {
               var htmlString="";
               ejs.renderFile(__dirname+"/../views/mail.ejs",{
@@ -121,7 +137,7 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
                   htmlString=data;
                 }
               });
-  
+
             const mailOptions = {
                 from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
                 to: createdReciept.teamLeaderEmail, // list of receivers (who receives)

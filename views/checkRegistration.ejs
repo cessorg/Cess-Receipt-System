@@ -38,6 +38,51 @@
     </style>
   </head>
   <body>
+    <nav class="navbar  navbar-expand-lg  navbar-dark bg-dark shadow-drk">
+    <a class="navbar-brand" href="/">CESS Reciept</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav nav nav-pills ml-auto ">
+        <li class="nav-item ">
+            <a class="p-2 nav-link "  href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+
+
+        <!--Logic to add login and logout links  -->
+        <% if(curUser){ %>
+
+            <!--Logic for admin links....-->
+            <% if(curUserRole==="Admin"){%>
+
+                <li class="nav-item">
+                    <a class="nav-link p-2 <% if(locals.isADashboard){ %>active<%}%>" href="/admin">Dashboard</a>
+                </li>
+
+
+            <% }else{ %>
+                <li class="nav-item">
+                    <a class="nav-link p-2 <% if(locals.isCDashboard){ %>active<%}%>" href="/reciept">Dashboard</a>
+                </li>
+
+            <% } %>
+            <li class="nav-item">
+                <a class="nav-link" href="/logout">Logout</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link p-2" href="/scanqr">Scan Code</a>
+            </li>
+        <% }else{ %>
+            <li class="nav-item">
+                <a class="nav-link p-2  <% if(locals.isLogin){ %>active<%}%>" href="/#login" >Login</a>
+            </li>
+        <% } %>
+        </ul>
+        </div>
+    </nav>
+
     <br>
     <br>
     <h1 class="text-center">QR Scanning</h1>
@@ -50,6 +95,26 @@
       </div>
     </form>
     <br><br>
+
+    <div class="row mb-5">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+        <div class="card p-4 text-center shadow-drk" style="background-color:#f1f1f1;border:none" >
+            <h2>Find User</h2>
+            <div class="card-body">
+                <form action="/leaderEmail" method="POST" class="email-query">
+                    <div class="form-group input-group">
+                        <div class="input-group-prepend bg-primary text-white pl-3 pr-3 pt-2" style="font-size:20px"><i class="fa fa-user" ></i></div>
+                        <input type="email" name="email" value="" class="form-control" placeholder="email">
+                    </div>
+                    <button class="btn btn-outline-primary"> Find</button>
+
+                </form>
+            </div>
+        </div>
+      </div>
+      <div class="col-lg-3"></div>
+    </div>
     <!-- Details of participant -->
       <div class="container d-none" id="participant_details">
         <div>
@@ -85,6 +150,7 @@
          </div>
       </div>
     <!-- end -->
+
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>

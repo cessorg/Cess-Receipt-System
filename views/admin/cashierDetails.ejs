@@ -7,8 +7,20 @@
     });
   %>
 
-  <% Object.keys(eventAmount).forEach(function(key) {%>
-    <p><span class="text-primary"><%=key%> </span><%=eventAmount[key]%></p>
-<%})%>
+  <table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">Event Name</th>
+      <th scope="col">Money</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% Object.keys(eventAmount).forEach(function(key) {%>
+      <tr>
+      <td><%=key%></td><td><%=eventAmount[key]%></td>
+      </tr>
+  <%})%>
+  </tbody>
+</table>
 </body>
 </html>
