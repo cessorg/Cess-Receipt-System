@@ -139,7 +139,7 @@ router.post("/reciept",middleware.isLogin,(req,res)=>{
               });
 
             const mailOptions = {
-                from: '"CESS " <manjotsingh16july@gmail.com>', // sender address (who sends)
+                from: '"CESS " <cess.gndu@gmail.com>', // sender address (who sends)
                 to: createdReciept.teamLeaderEmail, // list of receivers (who receives)
                 subject: `You registered Successfully `, // Subject line
                 html: htmlString,
