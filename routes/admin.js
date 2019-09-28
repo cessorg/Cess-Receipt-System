@@ -4,6 +4,7 @@ const db = require("../models/index");
 const passport = require("passport");
 const userRole=require("../models/userRoles");
 const middleware=require('../middleware/middleware');
+var json2xls = require('json2xls');
 
 router.get("/",middleware.isAdmin,(req,res)=>{
     db.User.find({userRole:userRole.Cashier})
@@ -43,15 +44,18 @@ router.post("/register",middleware.isAdmin,(req,res)=>{
 });
 
 router.post("/cashierData",middleware.isAdmin,(req,res)=>{
-  res.redirect('/admin/cashierDetails/'+req.body.cashier);
+  res.redirect('/admin/cashierDetails/'+req.body.cashier+'/'+req.body.selectedDate);
 });
 
 router.post("/eventData",middleware.isAdmin,(req,res)=>{
   res.redirect('/admin/eventDetails/'+req.body.event);
 });
 
-router.get('/cashierDetails/:id',middleware.isAdmin,(req,res)=>{
-  db.Reciept.find({generatedBy:req.params.id})
+router.get('/cashierDetails/:id/:date',middleware.isAdmin,(req,res)=>{
+  var date = new Date(req.params.date);
+  var nextDate = new Date(req.params.date);
+  nextDate.setDate(date.getDate()+1);
+  db.Reciept.find({generatedBy:req.params.id,dated:{$gte:date ,$lt:nextDate}})
     .populate("event")
     .then(reciepts=>{
       res.render('admin/cashierDetails',{reciepts});
@@ -67,7 +71,7 @@ router.get('/eventDetails/:id',middleware.isAdmin,(req,res)=>{
 })
 
 router.get("/events",middleware.isAdmin,(req,res)=>{
-    db.Event.find()
+    db.Event.find({})
     .then(eve=>{
         res.render("admin/event.ejs",{allEvents:eve});
     })
@@ -87,8 +91,30 @@ router.post("/event",middleware.isAdmin,(req,res)=>{
         console.log(err);
         res.send(err);
     });
-
-
 });
+
+router.post('/event_delete',middleware.isAdmin,(req,res)=>{
+  console.log("secret string is",req.body.secret);
+  if(req.body.secret=="i love programming"){
+    db.Reciept.find({event:req.body.event})
+      .then(reciepts=>{
+        db.Reciept.remove({event:req.body.event})
+          .then(()=>{
+            db.Event.findByIdAndRemove(req.body.event)
+              .then(()=>{
+                res.xls('data.xlsx', reciepts, {
+                  fields: ['teamLeaderName','teamLeaderEmail','teamMembers']
+                  });;
+              })
+          })
+      })
+      .catch(err=>{
+        console.log(err.message);
+      });
+  }
+  else{
+    res.redirect('/')
+  }
+})
 
 module.exports=router;
