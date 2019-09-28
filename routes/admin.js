@@ -95,7 +95,7 @@ router.post("/event",middleware.isAdmin,(req,res)=>{
 
 router.post('/event_delete',middleware.isAdmin,(req,res)=>{
   console.log("secret string is",req.body.secret);
-  if(req.body.secret=="i love programming"){
+  if(req.body.secret==process.env.secret){
     db.Reciept.find({event:req.body.event})
       .then(reciepts=>{
         db.Reciept.remove({event:req.body.event})
