@@ -32,6 +32,7 @@
       <th scope="col">Team size</th>
       <th scope="col">Team Members</th>
       <th scope="col">Fee</th>
+      <th scope="col">Cashier</th>
     </tr>
   </thead>
   <tbody>
@@ -42,6 +43,7 @@
         <td><%=reciept.teamMembers.length+1%></td>
         <td><%=reciept.teamMembers.join()%></td>
         <td><%=reciept.eventFee%></td>
+        <td><%=reciept.generatedBy.username%></td>
       </tr>
     <% }) %>
   </tbody>
