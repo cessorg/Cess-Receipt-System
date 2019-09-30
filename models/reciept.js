@@ -23,6 +23,10 @@ const recieptSchema=new mongoose.Schema({
     expire:{
         type:Boolean,
         default:false
+    },
+    dated:{
+      type:Date,
+      default:Date.now()
     }
 });
 module.exports=mongoose.model("reciept",recieptSchema);

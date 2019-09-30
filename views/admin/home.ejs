@@ -11,8 +11,17 @@
       <div class="col-lg-3"></div>
       <div class="col-lg-6">
         <div class="card p-4 text-center shadow-drk" style="background-color:#f1f1f1;border:none" >
-            <h2>Sort Data</h2>
             <div class="card-body">
+              <h2>Daily Report</h2>
+              <form action="/admin/dailyReport" method="POST">
+                  <div class="form-group">
+                    <label for="date">Pick date</label>
+                    <input type="date" class="form-control" class="date" name="selectedDate" >
+                  </div>
+                  <button class="btn btn-outline-primary"> Find</button>
+              </form>
+              <br/>
+              <h2>Sort Data</h2>
                 <form action="/admin/cashierData" method="POST">
                     <div class="form-group input-group">
                         <div class="input-group-prepend bg-primary text-white pl-3 pr-3 pt-2" style="font-size:20px"><i class="fa fa-user" ></i></div>
@@ -21,6 +30,10 @@
                                     <option  value="<%= cashier._id %>" > <%= cashier.username %> </option>
                                 <% })%>
                         </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="date">Pick date</label>
+                      <input type="date" class="form-control" class="date" name="selectedDate" >
                     </div>
                     <button class="btn btn-outline-primary"> Find</button>
 
@@ -59,7 +72,7 @@
 
                         <div class="form-group input-group">
                             <div class="input-group-prepend bg-primary text-white pl-3 pr-3 pt-2" style="font-size:20px"><i class="fa fa-key" ></i></div>
-                            <input type="password" name="password" placeholder="Enter password" class="form-control" required />
+                            <input id="datePicker" type="password" name="password" placeholder="Enter password" class="form-control" required />
                         </div>
                         <button class="btn btn-outline-primary"> Create</button>
 
@@ -70,7 +83,7 @@
         <div class="col-lg-3"></div>
     </div>
     </div>
-
+    <script src="/scripts/home.js" charset="utf-8"></script>
 
 
 
