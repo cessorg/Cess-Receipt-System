@@ -6,4 +6,4 @@ var now = new Date();
     if (day < 10)
         day = "0" + day;
     var today = now.getFullYear() + '-' + month + '-' + day;
-    $('#date').val(today);
+    $('.date').val(today);

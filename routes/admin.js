@@ -47,6 +47,10 @@ router.post("/cashierData",middleware.isAdmin,(req,res)=>{
   res.redirect('/admin/cashierDetails/'+req.body.cashier+'/'+req.body.selectedDate);
 });
 
+router.post("/dailyReport",middleware.isAdmin,(req,res)=>{
+  res.redirect('/admin/dailyReport/'+req.body.selectedDate);
+});
+
 router.post("/eventData",middleware.isAdmin,(req,res)=>{
   res.redirect('/admin/eventDetails/'+req.body.event);
 });
@@ -67,6 +71,17 @@ router.get('/eventDetails/:id',middleware.isAdmin,(req,res)=>{
     .populate("generatedBy")
     .then(reciepts=>{
       res.render('admin/eventDetails',{reciepts});
+    })
+})
+
+router.get('/dailyReport/:date',middleware.isAdmin,(req,res)=>{
+  var date = new Date(req.params.date);
+  var nextDate = new Date(req.params.date);
+  nextDate.setDate(date.getDate()+1);
+  db.Reciept.find({dated:{$gte:date ,$lt:nextDate}})
+    .populate("generatedBy")
+    .then(reciepts=>{
+      res.render('admin/dailyReport',{reciepts});
     })
 })
 
@@ -95,7 +110,7 @@ router.post("/event",middleware.isAdmin,(req,res)=>{
 
 router.post('/event_delete',middleware.isAdmin,(req,res)=>{
   console.log("secret string is",req.body.secret);
-  if(req.body.secret=="i love programming"){
+  if(req.body.secret==process.env.secret){
     db.Reciept.find({event:req.body.event})
       .then(reciepts=>{
         db.Reciept.remove({event:req.body.event})

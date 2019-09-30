@@ -22,29 +22,5 @@
 <br/>
 <h3 class="text-center">Total collection: <%=totalAmount%></h3>
 <br/>
-<br/>
-<h3 class="text-center">Full details</h3>
-<table class="table-responsive">
-  <thead>
-    <tr>
-      <th scope="col">teamLeaderName</th>
-      <th scope="col">Email address</th>
-      <th scope="col">Team size</th>
-      <th scope="col">Team Members</th>
-      <th scope="col">Fee</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% reciepts.forEach(function(reciept){ %>
-      <tr>
-        <td><%=reciept.teamLeaderName%></td>
-        <td><%=reciept.teamLeaderEmail%></td>
-        <td><%=reciept.teamMembers.length+1%></td>
-        <td><%=reciept.teamMembers.join()%></td>
-        <td><%=reciept.eventFee%></td>
-      </tr>
-    <% }) %>
-  </tbody>
-</table>
 </body>
 </html>
